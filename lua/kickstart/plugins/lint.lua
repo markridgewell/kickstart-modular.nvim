@@ -2,11 +2,29 @@ return {
 
   { -- Linting
     'mfussenegger/nvim-lint',
+    dependencies = {
+      'williamboman/mason.nvim',
+      'rshkarin/mason-nvim-lint',
+    },
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
+      require('mason').setup()
+
       local lint = require 'lint'
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
+        cmake = { 'cmakelint' },
+        ghaction = { 'actionlint' },
+      }
+
+      local ensure_installed = vim.iter(vim.tbl_values(lint.linters_by_ft)):flatten():totable()
+
+      lint.linters_by_ft['cpp'] = { 'cppcheck', 'clangtidy' }
+      lint.linters_by_ft['sh'] = { 'bash' }
+
+      require('mason-nvim-lint').setup {
+        ensure_installed = ensure_installed,
+        automatic_installation = false,
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,

@@ -5,9 +5,7 @@
 
 -- Make line numbers default
 vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -23,8 +21,16 @@ vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
 
--- Enable break indent
+-- show existing tab with 4 spaces width
+vim.opt.tabstop = 4
+-- when indenting with '>', use 4 spaces width
+vim.opt.shiftwidth = 4
+-- On pressing tab, insert 4 spaces
+vim.opt.expandtab = true
+
+vim.opt.linebreak = true
 vim.opt.breakindent = true
+vim.opt.showbreak = '--> '
 
 -- Save undo history
 vim.opt.undofile = true
@@ -60,6 +66,6 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 0
 
 -- vim: ts=2 sts=2 sw=2 et
